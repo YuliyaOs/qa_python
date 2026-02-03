@@ -1,1 +1,27 @@
-# qa_python
+Реализация тестов класса BooksCollector:
+
+-test_init_books_genre_default
+-test_init_favorites_default
+-test_init_genre_and_genre_age_rating
+
+-test_add_new_book_true
+-test_add_new_book_name_41_and_more_symbols_false
+
+test_set_book_genre_true
+test_set_book_genre_if_no_add_book_false
+test_set_book_genre_if_genre_no_exists_false
+
+test_get_book_genre_true
+test_get_book_genre_if_no_book_false
+
+test_get_books_with_specific_genre_true
+
+test_get_books_genre_true
+
+test_get_books_for_children_true
+
+test_add_book_in_favorites_true
+
+test_delete_book_from_favorites_true
+
+test_get_list_of_favorites_books_true
