@@ -1,35 +1,21 @@
 from main import BooksCollector
 import pytest
 import random
+from conftest import collector, collector_empty
 
 
 class TestBooksCollector:
 
-    @pytest.fixture(autouse=True)
-    def collector(self):
-        collector = BooksCollector()
-        collector.add_new_book('Гарри Поттер')
-        collector.add_new_book('Дракула')
-        collector.add_new_book('Оно')
-        collector.set_book_genre('Гарри Поттер', 'Фантастика')
-        collector.set_book_genre('Дракула', 'Ужасы')
-        collector.set_book_genre('Оно', 'Ужасы')
+    def test_init_books_genre_default(self, collector_empty):
+        assert collector_empty.books_genre == {}
 
-        return collector
+    def test_init_favorites_default(self, collector_empty):
+        assert collector_empty.favorites == []
 
-    def test_init_books_genre_default(self):
-        collector = BooksCollector()
-        assert collector.books_genre == {}
-
-    def test_init_favorites_default(self):
-        collector = BooksCollector()
-        assert collector.favorites == []
-
-    def test_init_genre_and_genre_age_rating(self):
-        collector = BooksCollector()
-        assert collector.genre == ['Фантастика', 'Ужасы',
-                                   'Детективы', 'Мультфильмы', 'Комедии']
-        assert collector.genre_age_rating == ['Ужасы', 'Детективы']
+    def test_init_genre_and_genre_age_rating(self, collector_empty):
+        assert collector_empty.genre == ['Фантастика', 'Ужасы',
+                                         'Детективы', 'Мультфильмы', 'Комедии']
+        assert collector_empty.genre_age_rating == ['Ужасы', 'Детективы']
 
     @pytest.mark.parametrize('name', ['З', 'За', 'Защита Лужина',
                                       'Искусство войны с комментариями и иллюс',
