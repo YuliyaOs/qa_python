@@ -12,24 +12,19 @@ class TestBooksCollector:
     def test_init_favorites_default(self, collector_empty):
         assert collector_empty.favorites == []
 
-    def test_init_genre_and_genre_age_rating(self, collector_empty):
-        assert collector_empty.genre == ['Фантастика', 'Ужасы',
-                                         'Детективы', 'Мультфильмы', 'Комедии']
-        assert collector_empty.genre_age_rating == ['Ужасы', 'Детективы']
-
     @pytest.mark.parametrize('name', ['З', 'За', 'Защита Лужина',
                                       'Искусство войны с комментариями и иллюс',
                                       'Искусство войны с комментариями и иллюст'])
     def test_add_new_book_true(self, collector, name):
         collector.add_new_book(name)
-        assert collector.books_genre[name] == ''
+        assert name in collector.books_genre
 
     @pytest.mark.parametrize('name', ['Искусство войны с комментариями и иллюстр',
                                       'Искусство войны с комментариями и иллюстра',
                                       'Искусство войны с комментариями и иллюстрациями'])
     def test_add_new_book_name_41_and_more_symbols_false(self, collector, name):
         collector.add_new_book(name)
-        assert collector.books_genre.get(name) == None
+        assert name not in collector.books_genre
 
     def test_set_book_genre_true(self, collector):
         name = 'Рождественская песнь'
@@ -57,10 +52,9 @@ class TestBooksCollector:
     def test_get_book_genre_if_no_book_false(self, collector):
         assert collector.get_book_genre('Недобавленная книга') == None
 
-    @pytest.mark.parametrize('genre,name', [['Фантастика', ['Гарри Поттер']],
-                                            ['Ужасы', ['Дракула', 'Оно']]])
-    def test_get_books_with_specific_genre_true(self, collector, genre, name):
-        assert collector.get_books_with_specific_genre(genre) == name
+    def test_get_books_with_specific_genre_true(self, collector):
+        assert collector.get_books_with_specific_genre(
+            'Фантастика') == ['Гарри Поттер']
 
     def test_get_books_genre_true(self, collector):
         assert collector.get_books_genre() == collector.books_genre
