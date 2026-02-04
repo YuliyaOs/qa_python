@@ -2,7 +2,6 @@
 
 -test_init_books_genre_default
 -test_init_favorites_default
--test_init_genre_and_genre_age_rating
 
 -test_add_new_book_true
 -test_add_new_book_name_41_and_more_symbols_false
